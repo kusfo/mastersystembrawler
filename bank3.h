@@ -1,6 +1,6 @@
-extern const unsigned char	level1_psg[3267];
-#define				level1_psg_size 3267
-#define				level1_psg_bank 3
+extern const unsigned char	level1music_psg[3267];
+#define				level1music_psg_size 3267
+#define				level1music_psg_bank 3
 extern const unsigned char	punch1_psg[16];
 #define				punch1_psg_size 16
 #define				punch1_psg_bank 3

@@ -24,6 +24,7 @@ void logo_screen() {
     load_background_blackpalette();
     frame_cnt = 0;
     play_logo_music();
+    music_bank = get_music_bank();
     while (frame_cnt < 300) {
         frame_cnt++;
         if(frame_cnt == 25) {
@@ -43,10 +44,12 @@ void logo_screen() {
 }
 
 void game_loop() {
-    load_game_assets();
+    load_level1_assets();
     init_gamestatus();
-    //print_debug_info();
+    init_entities();
     prepare_player_sprites();
+    play_game_music();
+    music_bank = get_music_bank();
     while (1) {
         if(!pause) {
             execute_game_logic();

@@ -10,6 +10,8 @@
 extern bool pause;
 extern unsigned char rand_index;
 extern unsigned int frame_cnt;
+extern unsigned char music_bank;
+extern unsigned char fx_bank;
 
 void init_console();
 void waitForFrame();

@@ -12,9 +12,9 @@ A _GSINIT size 0 flags 0 addr 0
 A _GSFINAL size 0 flags 0 addr 0
 A _BANK3 size 11D5 flags 0 addr 0
 S _systemfont_psgcompr Def0CE3
-S _level1_psg Def0000
 S _punch1_psg Def0CC3
 S _punch2_psg Def0CD3
+S _level1music_psg Def0000
 A _INITIALIZER size 0 flags 0 addr 0
 A _CABS size 0 flags 8 addr 0
 T 00 00
