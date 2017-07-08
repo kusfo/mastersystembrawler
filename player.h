@@ -20,6 +20,8 @@ typedef struct {
 	unsigned char status2;
 } player;
 
+extern player player1;
+extern player player2;
 
 void add_player(unsigned char player_number);
 void manage_input(unsigned int keys);

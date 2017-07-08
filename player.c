@@ -50,6 +50,21 @@ void manage_input(unsigned int keys) {
 		default:
 			break;
 	}
+	switch(player2.status) {
+		case PLAYER_STATUS_IDDLE:
+			manage_iddle_status(2, keys);
+			break;
+		case PLAYER_STATUS_WALKING:
+			manage_walking_status(2, keys);
+			break;
+		case PLAYER_STATUS_JUMPING:
+			manage_jumping_status(2, keys);
+			break;
+		case PLAYER_STATUS_CROUCHED:
+			break;
+		default:
+			break;
+	}
 	update_positions();
 }
 
@@ -60,7 +75,6 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player1.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player1.entityreference->entityIndex,0);
 			}
-			//check collisions (or in another place)
 		} else {
 			if(keys & PORT_A_KEY_RIGHT) {
 				player1.status = PLAYER_STATUS_WALKING;
@@ -85,7 +99,7 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				setAnimation(player1.entityreference->entityIndex,3);
 			} else if(keys & PORT_A_KEY_2) {
 				player1.status = PLAYER_STATUS_JUMPING;
-				player1.vy = CHAR2UFIX(2);
+				player1.vy = CHAR2UFIX(3);
 				player1.ydirection = -1;
 			}	
 		}
@@ -96,7 +110,6 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player2.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player2.entityreference->entityIndex,0);
 			}
-			//check collisions (or in another place)
 		} else {
 			if(keys & PORT_B_KEY_RIGHT) {
 				player2.status = PLAYER_STATUS_WALKING;
@@ -121,7 +134,7 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				setAnimation(player2.entityreference->entityIndex,3);
 			} else if(keys & PORT_B_KEY_2) {
 				player2.status = PLAYER_STATUS_JUMPING;
-				player2.vy = CHAR2UFIX(2);
+				player2.vy = CHAR2UFIX(3);
 				player2.ydirection = -1;
 			}
 		}
@@ -135,7 +148,6 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player1.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player1.entityreference->entityIndex,2);
 			}
-			//check collisions (or in another place)
 		} else {
 			if(keys & PORT_A_KEY_RIGHT) {
 				if(isAnimationEnded(player1.entityreference->entityIndex)) {
@@ -184,11 +196,12 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 			}
 			if(keys & PORT_A_KEY_2) {
 				player1.status = PLAYER_STATUS_JUMPING;
-				player1.vy = CHAR2UFIX(2);
+				player1.vy = CHAR2UFIX(3);
 				player1.ydirection = -1;
 			}
 			if(keys & PORT_A_KEY_1) {
 				player1.status2 = PLAYER_STATUS2_PUNCHING;
+				setAnimation(player1.entityreference->entityIndex,3);
 			}
 		}
 	} else {
@@ -197,7 +210,6 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player2.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player2.entityreference->entityIndex,2);
 			}
-			//check collisions (or in another place)
 		} else {
 			if(keys & PORT_B_KEY_RIGHT) {
 				if(isAnimationEnded(player2.entityreference->entityIndex)) {
@@ -243,11 +255,74 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				setAnimation(player2.entityreference->entityIndex,0);
 				player2.status = PLAYER_STATUS_IDDLE;
 			}
+			if(keys & PORT_B_KEY_2) {
+				player2.status = PLAYER_STATUS_JUMPING;
+				player2.vy = CHAR2UFIX(3);
+				player2.ydirection = -1;
+			}
+			if(keys & PORT_B_KEY_1) {
+				player2.status2 = PLAYER_STATUS2_PUNCHING;
+				setAnimation(player2.entityreference->entityIndex,3);
+			}
 		}
 	}
 }
 
 void manage_jumping_status(unsigned char player_number, unsigned int keys) {
+	if(player_number == 1) {
+		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
+			if(isAnimationEnded(player1.entityreference->entityIndex)) {
+				player1.status2 = PLAYER_STATUS2_IDDLE;
+				setAnimation(player1.entityreference->entityIndex,4);
+			}
+		} else {
+			if(keys & PORT_A_KEY_RIGHT) {
+				if(player1.xdirection == -1) {
+					forceReload(player1.entityreference->entityIndex);
+				}
+				player1.xdirection = 1;
+				player1.entityreference->direction = RIGHT_DIRECTION;
+				player1.vx = CHAR2UFIX(1);
+			} else if(keys & PORT_A_KEY_LEFT) {
+				if(player1.xdirection == 1) {
+					forceReload(player1.entityreference->entityIndex);
+				}
+				player1.xdirection = -1;
+				player1.entityreference->direction = LEFT_DIRECTION;
+				player1.vx = CHAR2UFIX(-1);
+			} else {
+				if(isAnimationEnded(player1.entityreference->entityIndex)) {
+					player1.vx = 0;
+				}
+			}
+			if(isAnimationEnded(player1.entityreference->entityIndex)) {
+				setAnimation(player1.entityreference->entityIndex,4);	
+			}
+			if(player1.ydirection == -1) {
+				player1.vy = player1.vy - 32;	
+			} else {
+				player1.vy = player1.vy + 32;
+			}
+			
+			if(player1.vy == 0) {
+				player1.ydirection = 1;	
+			}
+			if(player1.vy >= CHAR2UFIX(3)) {
+				setAnimation(player1.entityreference->entityIndex,0);
+				player1.status = PLAYER_STATUS_IDDLE;
+				player1.status2 = PLAYER_STATUS2_IDDLE;
+				player1.vx = 0;
+				player1.vy = 0;
+			}
+			
+			if(keys & PORT_A_KEY_1) {
+				player1.status2 = PLAYER_STATUS2_PUNCHING;
+				setAnimation(player1.entityreference->entityIndex,5);
+			}
+		}
+	} else {
+
+	}
 }
 
 void update_positions() {
@@ -255,12 +330,25 @@ void update_positions() {
 	
 	if(player1.entityreference->py > 160) {
 		player1.entityreference->py = 160;
-	} else if(player1.entityreference->py < 100) {
+	} else if(player1.entityreference->py < 100 && player1.status != PLAYER_STATUS_JUMPING) {
 		player1.entityreference->py = 100;
 	}
 	if(player1.entityreference->px < 12) {
 		player1.entityreference->px = 12;
 	} else if(player1.entityreference->px > 240) {
 		player1.entityreference->px = 240;
+	}
+
+	move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection, UFIX2CHAR(player2.vy)*player2.ydirection);
+	
+	if(player2.entityreference->py > 160) {
+		player2.entityreference->py = 160;
+	} else if(player2.entityreference->py < 100 && player2.status != PLAYER_STATUS_JUMPING) {
+		player2.entityreference->py = 100;
+	}
+	if(player2.entityreference->px < 12) {
+		player2.entityreference->px = 12;
+	} else if(player2.entityreference->px > 240) {
+		player2.entityreference->px = 240;
 	}
 }

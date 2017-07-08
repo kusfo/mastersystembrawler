@@ -51,6 +51,7 @@ void game_loop() {
     play_game_music();
     music_bank = get_music_bank();
     add_player(1);
+    add_player(2);
     while (1) {
         if(!pause) {
             execute_game_logic();
@@ -70,6 +71,7 @@ void execute_game_logic() {
         case GAME_STATUS_PLAYING:
             keys = SMS_getKeysStatus();
             manage_input(keys);
+            print_unsigned_char(player1.status);
             update_resources();
             break;
         default:
