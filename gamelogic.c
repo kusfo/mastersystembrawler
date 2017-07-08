@@ -16,6 +16,7 @@ void init_game() {
 
 void play_game(){
     logo_screen();
+    fnaclogo_screen();
     while(game_status != GAME_STATUS_GAME_OVER) {
         game_loop();
     }
@@ -37,6 +38,28 @@ void logo_screen() {
         }
         if(frame_cnt == 250) {
             load_logo_halfpalette();
+        } 
+        if(frame_cnt == 275) {
+            load_background_blackpalette();
+        }
+        waitForFrame();
+    }
+}
+
+void fnaclogo_screen() {
+    load_fnaclogo_assets();
+    load_background_blackpalette();
+    frame_cnt = 0;
+    while (frame_cnt < 300) {
+        frame_cnt++;
+        if(frame_cnt == 25) {
+            load_fnaclogo_halfpalette();
+        }
+        if(frame_cnt == 50) {
+            load_fnaclogo_fullpalette();
+        }
+        if(frame_cnt == 250) {
+            load_fnaclogo_halfpalette();
         } 
         if(frame_cnt == 275) {
             load_background_blackpalette();

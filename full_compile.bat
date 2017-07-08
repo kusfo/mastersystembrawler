@@ -6,6 +6,9 @@ echo Reexportar graficos
 if %errorlevel% neq 0 exit
 .\bmp2tile\bmp2tile.exe .\gfx-source\levelbackground.png -mirror -removedupes -savetiles .\assets\levelbackgroundtiles.psgcompr -savepalette .\assets\levelbackgroundpalette.bin -savetilemap .\assets\levelbackgroundtilemap.bin -exit
 if %errorlevel% neq 0 exit
+.\bmp2tile\bmp2tile.exe .\gfx-source\fnac_logo.png -mirror -removedupes -savetiles .\assets\fnaclogotiles.psgcompr -savepalette .\assets\fnaclogopalette.bin -savetilemap .\assets\fnaclogotilemap.bin -exit
+if %errorlevel% neq 0 exit
+
 echo Exportar spritesheets
 python ./tools/spriter-tiles.py -w 4 -e 4 -m True -c ./tools/player.cfg -o ./ -b ./assets ./gfx-source/player_spritesheet.png
 if %errorlevel% neq 0 exit

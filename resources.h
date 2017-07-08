@@ -4,6 +4,11 @@
 void load_logo_assets();
 void load_logo_halfpalette();
 void load_logo_fullpalette();
+
+void load_fnaclogo_assets();
+void load_fnaclogo_halfpalette();
+void load_fnaclogo_fullpalette();
+
 void load_level1_assets();
 
 void update_resources();

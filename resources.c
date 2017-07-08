@@ -20,6 +20,20 @@ void load_logo_fullpalette() {
 	SMS_loadBGPalette(logo1985palette_bin);
 }
 
+void load_fnaclogo_assets() {
+	SMS_mapROMBank(fnaclogotiles_psgcompr_bank);
+    SMS_loadPSGaidencompressedTiles(fnaclogotiles_psgcompr,0);
+    SMS_loadTileMap(0, 0, fnaclogotilemap_bin, fnaclogotilemap_bin_size);
+}
+
+void load_fnaclogo_halfpalette() {
+	SMS_loadBGPaletteHalfBrightness(fnaclogopalette_bin);
+}
+
+void load_fnaclogo_fullpalette() {
+	SMS_loadBGPalette(fnaclogopalette_bin);
+}
+
 void load_level1_assets() {
 	SMS_mapROMBank(levelbackgroundpalette_bin_bank);
 	SMS_loadBGPalette(levelbackgroundpalette_bin);

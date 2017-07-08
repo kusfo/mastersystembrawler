@@ -109,12 +109,12 @@ extern const unsigned char	logo1985palette_bin[5];
 extern const unsigned char	logo1985music_psg[201];
 #define				logo1985music_psg_size 201
 #define				logo1985music_psg_bank 2
-extern const unsigned char	levelbackgroundtiles_psgcompr[442];
-#define				levelbackgroundtiles_psgcompr_size 442
-#define				levelbackgroundtiles_psgcompr_bank 2
-extern const unsigned char	levelbackgroundtilemap_bin[1536];
-#define				levelbackgroundtilemap_bin_size 1536
-#define				levelbackgroundtilemap_bin_bank 2
-extern const unsigned char	levelbackgroundpalette_bin[15];
-#define				levelbackgroundpalette_bin_size 15
-#define				levelbackgroundpalette_bin_bank 2
+extern const unsigned char	fnaclogotiles_psgcompr[1179];
+#define				fnaclogotiles_psgcompr_size 1179
+#define				fnaclogotiles_psgcompr_bank 2
+extern const unsigned char	fnaclogotilemap_bin[1536];
+#define				fnaclogotilemap_bin_size 1536
+#define				fnaclogotilemap_bin_bank 2
+extern const unsigned char	fnaclogopalette_bin[16];
+#define				fnaclogopalette_bin_size 16
+#define				fnaclogopalette_bin_bank 2
