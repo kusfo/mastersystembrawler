@@ -16,7 +16,7 @@ void initEngine() {
 	entityIndex = 0;
 }
 
-void addEntity(character* characterData, unsigned char px, unsigned char py) {
+entity* addEntity(character* characterData, unsigned char px, unsigned char py) {
 	entitylist[entityIndex] = malloc(sizeof(entity));
 	entitylist[entityIndex]->entityIndex = entityIndex;
 	entitylist[entityIndex]->currentAnimation = 0;
@@ -31,16 +31,19 @@ void addEntity(character* characterData, unsigned char px, unsigned char py) {
 	entitylist[entityIndex]->vramposition = entityVramPosition;
 	entityVramPosition = entityVramPosition + characterData->maxsprites;
 	entityIndex++;
+	return entitylist[entityIndex - 1];
 }
 
 void setAnimation(unsigned char entitynumber, int animationNumber) {
-	if(entitylist[entitynumber]->animationEnded == true) {
-		entitylist[entitynumber]->currentAnimation = animationNumber;
-		entitylist[entitynumber]->has2ReloadTiles = true;
-		entitylist[entitynumber]->animationEnded = false;
-		entitylist[entitynumber]->currentFrame = 0;
-		entitylist[entitynumber]->framecnt = 0;	
-	}
+	entitylist[entitynumber]->currentAnimation = animationNumber;
+	entitylist[entitynumber]->has2ReloadTiles = true;
+	entitylist[entitynumber]->animationEnded = false;
+	entitylist[entitynumber]->currentFrame = 0;
+	entitylist[entitynumber]->framecnt = 0;	
+}
+
+bool isAnimationEnded(unsigned char entitynumber) {
+	return entitylist[entitynumber]->animationEnded;
 }
 
 void setDirection(unsigned char entitynumber, unsigned char direction) {
@@ -98,15 +101,7 @@ void drawEntities() {
 	SMS_finalizeSprites();
 }
 
-void move_entity_right(unsigned char entitynumber) {
-	entitylist[entitynumber]->px++;
-}
-void move_entity_left(unsigned char entitynumber) {
-	entitylist[entitynumber]->px--;
-}
-void move_entity_up(unsigned char entitynumber) {
-	entitylist[entitynumber]->py--;
-}
-void move_entity_down(unsigned char entitynumber) {
-	entitylist[entitynumber]->py++;
+void move_entity(unsigned char entitynumber, signed char x, signed char y) {
+	entitylist[entitynumber]->px = entitylist[entitynumber]->px + x;
+	entitylist[entitynumber]->py = entitylist[entitynumber]->py + y;
 }

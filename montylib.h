@@ -7,6 +7,9 @@
 #define SCREEN_ROWS 24
 #define NUM_FPS_FRAME 60
 
+#define UFIX2CHAR(x)      ((unsigned char)((x)>>8))
+#define CHAR2UFIX(x)      ((unsigned int)(x)<<8)
+
 extern bool pause;
 extern unsigned char rand_index;
 extern unsigned int frame_cnt;

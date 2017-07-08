@@ -5,7 +5,6 @@
 #include "bank2.h" 
 #include "bank3.h"
 #include "spriteengine.h"
-#include "playercharacter.h"
 
 unsigned char current_music_bank = 0;
 
@@ -34,58 +33,15 @@ void load_level1_assets() {
     SMS_loadSpritePalette(player_palette_bin);
 }
 
-void load_background_blackpalette() {
-	SMS_zeroBGPalette();
-}
 
-void init_entities() {
-	initEngine();
-}
-
-void prepare_player_sprites() {
-	addEntity(&player_character, 32, 100);
-	addEntity(&player_character, 132, 100);
-}
-
-void draw_player_sprites() {
+void update_resources() {
 	updateTiles();
 	updateAnimations();
 	drawEntities();
 }
 
-void move_player_right() {
-	move_entity_right(0);
-	setAnimation(0,2);
-	setDirection(0, RIGHT_DIRECTION);
-}
-
-void move_player_left() {
-	move_entity_left(0);
-	setAnimation(0,2);
-	setDirection(0,LEFT_DIRECTION);
-}
-
-void move_player_up() {
-	move_entity_up(0);
-	setAnimation(0,2);
-}
-
-void move_player_down() {
-	move_entity_down(0);
-	setAnimation(0,2);
-}
-
-void player_punch() {
-	setAnimation(0,3);
-}
-
-void player_jump() {
-	setAnimation(0,4);
-	move_entity_up(0);
-}
-
-void stop_player() {
-	setAnimation(0,0);
+void load_background_blackpalette() {
+	SMS_zeroBGPalette();
 }
 
 void play_logo_music() {
@@ -112,9 +68,7 @@ unsigned char get_music_bank() {
 void print_debug_info() {
 	unsigned char i;
 	i = 0;
-	addEntity(&player_character, 15, 20);
-	//print_unsigned_char(entitylist[0]->characterData->maxsprites);
-	print_unsigned_char(entitylist[i]->characterData->animationlist[entitylist[i]->currentAnimation].framelist[entitylist[i]->currentFrame].frame_time);
+	//print_unsigned_char(entitylist[i]->characterData->animationlist[entitylist[i]->currentAnimation].framelist[entitylist[i]->currentFrame].frame_time);
 }
 
 void print_unsigned_char(unsigned char number) {

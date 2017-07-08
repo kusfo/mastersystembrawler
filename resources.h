@@ -6,22 +6,12 @@ void load_logo_halfpalette();
 void load_logo_fullpalette();
 void load_level1_assets();
 
+void update_resources();
+
 void play_logo_music();
 void play_game_music();
 
 void load_background_blackpalette();
-void init_entities();
-
-void prepare_player_sprites();
-void draw_player_sprites();
-void move_player_right();
-void move_player_left();
-void move_player_up();
-void move_player_down();
-void player_punch();
-void player_jump();
-void stop_player();
-
 unsigned char get_music_bank();
 
 void load_system_font();

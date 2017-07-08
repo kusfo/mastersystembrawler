@@ -60,14 +60,12 @@ typedef struct {
 extern entity *entitylist[MAX_ENTITIES];
 
 void initEngine();
-void addEntity(character* characterData, unsigned char px, unsigned char py);
+entity* addEntity(character* characterData, unsigned char px, unsigned char py);
 void setAnimation(unsigned char entityindex, int animationNumber);
+bool isAnimationEnded(unsigned char entitynumber);
 void setDirection(unsigned char entityindex, unsigned char direction);
 void updateAnimations();
 void updateTiles();
 void drawEntities();
-void move_entity_right(unsigned char entitynumber);
-void move_entity_left(unsigned char entitynumber);
-void move_entity_up(unsigned char entitynumber);
-void move_entity_down(unsigned char entitynumber);
+void move_entity(unsigned char entitynumber, signed char x, signed char y);
 #endif

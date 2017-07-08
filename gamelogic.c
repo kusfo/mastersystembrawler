@@ -2,6 +2,8 @@
 #include "SMSlib.h"
 #include "gamelogic.h"
 #include "resources.h"
+#include "spriteengine.h"
+#include "player.h"
 #include "montylib.h"
 
 unsigned char game_status;
@@ -46,15 +48,13 @@ void logo_screen() {
 void game_loop() {
     load_level1_assets();
     init_gamestatus();
-    init_entities();
-    prepare_player_sprites();
     play_game_music();
     music_bank = get_music_bank();
+    add_player(1);
     while (1) {
         if(!pause) {
             execute_game_logic();
         }
-        draw_player_sprites();
         waitForFrame();
     }
 }
@@ -69,21 +69,8 @@ void execute_game_logic() {
     switch (game_status) {
         case GAME_STATUS_PLAYING:
             keys = SMS_getKeysStatus();
-            if(keys & PORT_A_KEY_RIGHT) {
-                move_player_right();
-            } else if(keys & PORT_A_KEY_LEFT) {
-                move_player_left();
-            } else if(keys & PORT_A_KEY_UP) {
-                move_player_up();
-            } else if(keys & PORT_A_KEY_DOWN) {
-                move_player_down();
-            } else if(keys & PORT_A_KEY_1) {
-                player_punch();
-            } else if(keys & PORT_A_KEY_2) {
-                player_jump();
-            } else {
-                stop_player();
-            }
+            manage_input(keys);
+            update_resources();
             break;
         default:
             break;

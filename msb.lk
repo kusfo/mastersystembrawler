@@ -13,6 +13,7 @@ montylib.rel
 gamelogic.rel
 resources.rel
 spriteengine.rel
+player.rel
 PSGLib.rel
 bank2.rel
 bank3.rel
