@@ -1,5 +1,5 @@
-extern const unsigned char	player_palette_bin[3];
-#define				player_palette_bin_size 3
+extern const unsigned char	player_palette_bin[8];
+#define				player_palette_bin_size 8
 #define				player_palette_bin_bank 2
 extern const unsigned char	playeranimation0frame0_bin[256];
 #define				playeranimation0frame0_bin_size 256
@@ -109,8 +109,8 @@ extern const unsigned char	logo1985palette_bin[5];
 extern const unsigned char	logo1985music_psg[201];
 #define				logo1985music_psg_size 201
 #define				logo1985music_psg_bank 2
-extern const unsigned char	levelbackgroundtiles_psgcompr[1308];
-#define				levelbackgroundtiles_psgcompr_size 1308
+extern const unsigned char	levelbackgroundtiles_psgcompr[442];
+#define				levelbackgroundtiles_psgcompr_size 442
 #define				levelbackgroundtiles_psgcompr_bank 2
 extern const unsigned char	levelbackgroundtilemap_bin[1536];
 #define				levelbackgroundtilemap_bin_size 1536
