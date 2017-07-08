@@ -6,12 +6,11 @@
 #include "SMSlib.h"
 #include "PSGlib.h"
 #include "randLut.h"
+#include "soundengine.h"
 
 bool pause;
 unsigned char rand_index =  0;
 unsigned int frame_cnt;
-unsigned char music_bank = 0;
-unsigned char fx_bank = 0;
 
 
 void init_console() {
@@ -25,16 +24,7 @@ void init_console() {
 
 void waitForFrame(){
     if(!pause) {
-        if(PSGGetStatus() == PSG_PLAYING){
-            SMS_mapROMBank(music_bank);
-            PSGFrame();
-        }
-        if(PSGSFXGetStatus() == PSG_PLAYING){
-            SMS_mapROMBank(fx_bank);
-            PSGSFXFrame();
-        } else {
-            PSGSFXStop();
-        }
+        manage_sound_frame();
     }
     SMS_waitForVBlank();
     SMS_copySpritestoSAT();

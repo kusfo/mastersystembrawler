@@ -6,8 +6,6 @@
 #include "bank3.h"
 #include "spriteengine.h"
 
-unsigned char current_music_bank = 0;
-
 void load_logo_assets() {
 	SMS_mapROMBank(logo1985tiles_bin_bank);
     SMS_loadTiles(logo1985tiles_bin, 0, logo1985tiles_bin_size);
@@ -44,25 +42,9 @@ void load_background_blackpalette() {
 	SMS_zeroBGPalette();
 }
 
-void play_logo_music() {
-	SMS_mapROMBank(logo1985music_psg_bank);
-	current_music_bank = logo1985music_psg_bank;
-	PSGPlay(logo1985music_psg);
-}
-
-void play_game_music() {
-	SMS_mapROMBank(level1music_psg_bank);
-	current_music_bank = level1music_psg_bank;
-	PSGPlay(level1music_psg);
-}
-
 void load_system_font() {
 	SMS_mapROMBank(systemfont_psgcompr_bank);
 	SMS_loadPSGaidencompressedTiles(systemfont_psgcompr,0);
-}
-
-unsigned char get_music_bank() {
-	return current_music_bank;
 }
 
 void print_debug_info() {

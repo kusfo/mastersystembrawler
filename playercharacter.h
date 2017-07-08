@@ -266,7 +266,7 @@ static const character player_character =
 					playeranimation2frame0_bin,//frame name
 					playeranimation2frame0_bin_size,//frame size
 					playeranimation2frame0_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					3,//collision x1
 					5,//collision y1
 					13,//collision x2
@@ -325,7 +325,7 @@ static const character player_character =
 					playeranimation2frame1_bin,//frame name
 					playeranimation2frame1_bin_size,//frame size
 					playeranimation2frame1_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					3,//collision x1
 					5,//collision y1
 					13,//collision x2
@@ -384,7 +384,7 @@ static const character player_character =
 					playeranimation2frame2_bin,//frame name
 					playeranimation2frame2_bin_size,//frame size
 					playeranimation2frame2_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					3,//collision x1
 					5,//collision y1
 					13,//collision x2
@@ -443,7 +443,7 @@ static const character player_character =
 					playeranimation2frame3_bin,//frame name
 					playeranimation2frame3_bin_size,//frame size
 					playeranimation2frame3_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					3,//collision x1
 					5,//collision y1
 					13,//collision x2
@@ -504,7 +504,7 @@ static const character player_character =
 					playeranimation2frame0mirrored_bin,//frame name
 					playeranimation2frame0mirrored_bin_size,//frame size
 					playeranimation2frame0mirrored_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					-3,//collision x1
 					5,//collision y1
 					-13,//collision x2
@@ -563,7 +563,7 @@ static const character player_character =
 					playeranimation2frame1mirrored_bin,//frame name
 					playeranimation2frame1mirrored_bin_size,//frame size
 					playeranimation2frame1mirrored_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					-3,//collision x1
 					5,//collision y1
 					-13,//collision x2
@@ -622,7 +622,7 @@ static const character player_character =
 					playeranimation2frame2mirrored_bin,//frame name
 					playeranimation2frame2mirrored_bin_size,//frame size
 					playeranimation2frame2mirrored_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					-3,//collision x1
 					5,//collision y1
 					-13,//collision x2
@@ -681,7 +681,7 @@ static const character player_character =
 					playeranimation2frame3mirrored_bin,//frame name
 					playeranimation2frame3mirrored_bin_size,//frame size
 					playeranimation2frame3mirrored_bin_bank,//frame bank
-					10,//frame time
+					5,//frame time
 					-3,//collision x1
 					5,//collision y1
 					-13,//collision x2

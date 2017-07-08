@@ -3,8 +3,9 @@
 #include "player.h"
 #include "bank2.h"
 #include "playercharacter.h"
-#include "SMSlib.h"
 #include "montylib.h"
+#include "soundengine.h"
+#include "SMSlib.h"
 
 player player1;
 player player2;
@@ -46,6 +47,7 @@ void manage_input(unsigned int keys) {
 			manage_jumping_status(1, keys);
 			break;
 		case PLAYER_STATUS_CROUCHED:
+			manage_crouched_status(1, keys);
 			break;
 		default:
 			break;
@@ -61,6 +63,7 @@ void manage_input(unsigned int keys) {
 			manage_jumping_status(2, keys);
 			break;
 		case PLAYER_STATUS_CROUCHED:
+			manage_crouched_status(2, keys);
 			break;
 		default:
 			break;
@@ -73,6 +76,7 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
 			if(isAnimationEnded(player1.entityreference->entityIndex)) {
 				player1.status2 = PLAYER_STATUS2_IDDLE;
+				play_punch_sound2();
 				setAnimation(player1.entityreference->entityIndex,0);
 			}
 		} else {
@@ -91,12 +95,19 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player1.vy = CHAR2UFIX(1);
 				player1.ydirection = -1;
 			} else if(keys & PORT_A_KEY_DOWN) {
-				player1.status = PLAYER_STATUS_WALKING;
-				player1.vy = CHAR2UFIX(1);
-				player1.ydirection = 1;
-			} else if(keys & PORT_A_KEY_1) {
+				if(keys & PORT_A_KEY_1) {
+					player1.status = PLAYER_STATUS_CROUCHED;
+					setAnimation(player1.entityreference->entityIndex,6);
+				} else {
+					player1.status = PLAYER_STATUS_WALKING;
+					player1.vy = CHAR2UFIX(1);
+					player1.ydirection = 1;	
+				}
+			} else if((keys & PORT_A_KEY_1) && player1.status2 == PLAYER_STATUS2_IDDLE) {
 				player1.status2 = PLAYER_STATUS2_PUNCHING;
 				setAnimation(player1.entityreference->entityIndex,3);
+				play_punch_sound1();
+
 			} else if(keys & PORT_A_KEY_2) {
 				player1.status = PLAYER_STATUS_JUMPING;
 				player1.vy = CHAR2UFIX(3);
@@ -109,6 +120,7 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 			if(isAnimationEnded(player2.entityreference->entityIndex)) {
 				player2.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player2.entityreference->entityIndex,0);
+				play_punch_sound2();
 			}
 		} else {
 			if(keys & PORT_B_KEY_RIGHT) {
@@ -126,12 +138,18 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player2.vy = CHAR2UFIX(1);
 				player2.ydirection = -1;
 			} else if(keys & PORT_B_KEY_DOWN) {
-				player2.status = PLAYER_STATUS_WALKING;
-				player2.vy = CHAR2UFIX(1);
-				player2.ydirection = 1;
-			}else if(keys & PORT_B_KEY_1) {
+				if(keys & PORT_B_KEY_1) {
+					player2.status = PLAYER_STATUS_CROUCHED;
+					setAnimation(player2.entityreference->entityIndex,6);
+				} else {
+					player2.status = PLAYER_STATUS_WALKING;
+					player2.vy = CHAR2UFIX(1);
+					player2.ydirection = 1;	
+				}
+			}else if((keys & PORT_B_KEY_1) && player2.status2 == PLAYER_STATUS2_IDDLE) {
 				player2.status2 = PLAYER_STATUS2_PUNCHING;
 				setAnimation(player2.entityreference->entityIndex,3);
+				play_punch_sound1();
 			} else if(keys & PORT_B_KEY_2) {
 				player2.status = PLAYER_STATUS_JUMPING;
 				player2.vy = CHAR2UFIX(3);
@@ -144,9 +162,18 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 void manage_walking_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
-			if(isAnimationEnded(player1.entityreference->entityIndex)) {
-				player1.status2 = PLAYER_STATUS2_IDDLE;
-				setAnimation(player1.entityreference->entityIndex,2);
+			if(keys & PORT_A_KEY_DOWN) {
+				player1.status = PLAYER_STATUS_CROUCHED;
+				setAnimation(player1.entityreference->entityIndex,7);
+				player1.vy = 0;
+			} else {
+				if(isAnimationEnded(player1.entityreference->entityIndex)) {
+					player1.status2 = PLAYER_STATUS2_IDDLE;
+					player1.status = PLAYER_STATUS_IDDLE;
+					player1.vx = 0;
+					setAnimation(player1.entityreference->entityIndex,0);
+					play_punch_sound2();
+				}
 			}
 		} else {
 			if(keys & PORT_A_KEY_RIGHT) {
@@ -199,16 +226,26 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player1.vy = CHAR2UFIX(3);
 				player1.ydirection = -1;
 			}
-			if(keys & PORT_A_KEY_1) {
+			if((keys & PORT_A_KEY_1) && player1.status2 == PLAYER_STATUS2_IDDLE) {
 				player1.status2 = PLAYER_STATUS2_PUNCHING;
 				setAnimation(player1.entityreference->entityIndex,3);
+				play_punch_sound1();
 			}
 		}
 	} else {
 		if(player2.status2 == PLAYER_STATUS2_PUNCHING) {
-			if(isAnimationEnded(player2.entityreference->entityIndex)) {
-				player2.status2 = PLAYER_STATUS2_IDDLE;
-				setAnimation(player2.entityreference->entityIndex,2);
+			if(keys & PORT_B_KEY_DOWN) {
+				player2.status = PLAYER_STATUS_CROUCHED;
+				setAnimation(player2.entityreference->entityIndex,7);
+				player2.vy = 0;
+			} else {
+				if(isAnimationEnded(player2.entityreference->entityIndex)) {
+					player2.status2 = PLAYER_STATUS2_IDDLE;
+					player2.status = PLAYER_STATUS_IDDLE;
+					player2.vx = 0;
+					setAnimation(player2.entityreference->entityIndex,0);
+					play_punch_sound2();
+				}
 			}
 		} else {
 			if(keys & PORT_B_KEY_RIGHT) {
@@ -260,9 +297,10 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player2.vy = CHAR2UFIX(3);
 				player2.ydirection = -1;
 			}
-			if(keys & PORT_B_KEY_1) {
+			if((keys & PORT_B_KEY_1) && player2.status2 == PLAYER_STATUS2_IDDLE) {
 				player2.status2 = PLAYER_STATUS2_PUNCHING;
 				setAnimation(player2.entityreference->entityIndex,3);
+				play_punch_sound1();
 			}
 		}
 	}
@@ -270,59 +308,142 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 
 void manage_jumping_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
+		if(keys & PORT_A_KEY_RIGHT) {
+			if(player1.xdirection == -1) {
+				forceReload(player1.entityreference->entityIndex);
+			}
+			player1.xdirection = 1;
+			player1.entityreference->direction = RIGHT_DIRECTION;
+			player1.vx = CHAR2UFIX(1);
+		} else if(keys & PORT_A_KEY_LEFT) {
+			if(player1.xdirection == 1) {
+				forceReload(player1.entityreference->entityIndex);
+			}
+			player1.xdirection = -1;
+			player1.entityreference->direction = LEFT_DIRECTION;
+			player1.vx = CHAR2UFIX(1);
+		} else {
+			if(isAnimationEnded(player1.entityreference->entityIndex)) {
+				player1.vx = 0;
+			}
+		}
+		if(isAnimationEnded(player1.entityreference->entityIndex)) {
+			setAnimation(player1.entityreference->entityIndex,4);	
+		}
+		if(player1.ydirection == -1) {
+			player1.vy = player1.vy - 32;	
+		} else {
+			player1.vy = player1.vy + 32;
+		}
+		
+		if(player1.vy == 0) {
+			player1.ydirection = 1;	
+		}
+		if(player1.vy >= CHAR2UFIX(3)) {
+			setAnimation(player1.entityreference->entityIndex,0);
+			player1.status = PLAYER_STATUS_IDDLE;
+			player1.status2 = PLAYER_STATUS2_IDDLE;
+			player1.vx = 0;
+			player1.vy = 0;
+		}
+		if((keys & PORT_A_KEY_1) && player1.status2 == PLAYER_STATUS2_IDDLE) {
+			player1.status2 = PLAYER_STATUS2_PUNCHING;
+			setAnimation(player1.entityreference->entityIndex,5);
+			play_punch_sound1();
+		}
+	} else {
+		if(keys & PORT_B_KEY_RIGHT) {
+			if(player2.xdirection == -1) {
+				forceReload(player2.entityreference->entityIndex);
+			}
+			player2.xdirection = 1;
+			player2.entityreference->direction = RIGHT_DIRECTION;
+			player2.vx = CHAR2UFIX(1);
+		} else if(keys & PORT_B_KEY_LEFT) {
+			if(player2.xdirection == 1) {
+				forceReload(player2.entityreference->entityIndex);
+			}
+			player2.xdirection = -1;
+			player2.entityreference->direction = LEFT_DIRECTION;
+			player2.vx = CHAR2UFIX(1);
+		} else {
+			if(isAnimationEnded(player2.entityreference->entityIndex)) {
+				player2.vx = 0;
+			}
+		}
+		if(isAnimationEnded(player2.entityreference->entityIndex)) {
+			setAnimation(player2.entityreference->entityIndex,4);	
+		}
+		if(player2.ydirection == -1) {
+			player2.vy = player2.vy - 32;	
+		} else {
+			player2.vy = player2.vy + 32;
+		}
+		
+		if(player2.vy == 0) {
+			player2.ydirection = 1;	
+		}
+		if(player2.vy >= CHAR2UFIX(3)) {
+			setAnimation(player2.entityreference->entityIndex,0);
+			player2.status = PLAYER_STATUS_IDDLE;
+			player2.status2 = PLAYER_STATUS2_IDDLE;
+			player2.vx = 0;
+			player2.vy = 0;
+		}
+		if((keys & PORT_B_KEY_1) && player2.status2 == PLAYER_STATUS2_IDDLE) {
+			player2.status2 = PLAYER_STATUS2_PUNCHING;
+			setAnimation(player2.entityreference->entityIndex,5);
+			play_punch_sound1();
+		}
+	}
+}
+
+void manage_crouched_status(unsigned char player_number, unsigned int keys) {
+	if(player_number == 1) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
 			if(isAnimationEnded(player1.entityreference->entityIndex)) {
 				player1.status2 = PLAYER_STATUS2_IDDLE;
-				setAnimation(player1.entityreference->entityIndex,4);
-			}
-		} else {
-			if(keys & PORT_A_KEY_RIGHT) {
-				if(player1.xdirection == -1) {
-					forceReload(player1.entityreference->entityIndex);
-				}
-				player1.xdirection = 1;
-				player1.entityreference->direction = RIGHT_DIRECTION;
-				player1.vx = CHAR2UFIX(1);
-			} else if(keys & PORT_A_KEY_LEFT) {
-				if(player1.xdirection == 1) {
-					forceReload(player1.entityreference->entityIndex);
-				}
-				player1.xdirection = -1;
-				player1.entityreference->direction = LEFT_DIRECTION;
-				player1.vx = CHAR2UFIX(-1);
-			} else {
-				if(isAnimationEnded(player1.entityreference->entityIndex)) {
-					player1.vx = 0;
-				}
-			}
-			if(isAnimationEnded(player1.entityreference->entityIndex)) {
-				setAnimation(player1.entityreference->entityIndex,4);	
-			}
-			if(player1.ydirection == -1) {
-				player1.vy = player1.vy - 32;	
-			} else {
-				player1.vy = player1.vy + 32;
-			}
-			
-			if(player1.vy == 0) {
-				player1.ydirection = 1;	
-			}
-			if(player1.vy >= CHAR2UFIX(3)) {
-				setAnimation(player1.entityreference->entityIndex,0);
-				player1.status = PLAYER_STATUS_IDDLE;
-				player1.status2 = PLAYER_STATUS2_IDDLE;
+				setAnimation(player1.entityreference->entityIndex,6);
 				player1.vx = 0;
 				player1.vy = 0;
 			}
-			
-			if(keys & PORT_A_KEY_1) {
-				player1.status2 = PLAYER_STATUS2_PUNCHING;
-				setAnimation(player1.entityreference->entityIndex,5);
-			}
+		} else {
+			if(!(keys & PORT_A_KEY_DOWN)) {
+				if(isAnimationEnded(player1.entityreference->entityIndex)) {
+					setAnimation(player1.entityreference->entityIndex,0);
+					player1.status = PLAYER_STATUS_IDDLE;
+				}
+			} else {
+				if(keys & PORT_A_KEY_1) {
+					player1.status2 = PLAYER_STATUS2_PUNCHING;
+					setAnimation(player1.entityreference->entityIndex,7);
+					play_punch_sound1();
+				}
+			}	
 		}
 	} else {
-
-	}
+		if(player2.status2 == PLAYER_STATUS2_PUNCHING) {
+			if(isAnimationEnded(player2.entityreference->entityIndex)) {
+				player2.status2 = PLAYER_STATUS2_IDDLE;
+				setAnimation(player2.entityreference->entityIndex,6);
+				player2.vx = 0;
+				player2.vy = 0;
+			}
+		} else {
+			if(!(keys & PORT_B_KEY_DOWN)) {
+				if(isAnimationEnded(player2.entityreference->entityIndex)) {
+					setAnimation(player2.entityreference->entityIndex,0);
+					player2.status = PLAYER_STATUS_IDDLE;
+				}
+			} else {
+				if(keys & PORT_B_KEY_1) {
+					player2.status2 = PLAYER_STATUS2_PUNCHING;
+					setAnimation(player2.entityreference->entityIndex,7);
+					play_punch_sound1();
+				}
+			}	
+		}
+	}	
 }
 
 void update_positions() {

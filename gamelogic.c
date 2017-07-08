@@ -3,6 +3,7 @@
 #include "gamelogic.h"
 #include "resources.h"
 #include "spriteengine.h"
+#include "soundengine.h"
 #include "player.h"
 #include "montylib.h"
 
@@ -26,7 +27,6 @@ void logo_screen() {
     load_background_blackpalette();
     frame_cnt = 0;
     play_logo_music();
-    music_bank = get_music_bank();
     while (frame_cnt < 300) {
         frame_cnt++;
         if(frame_cnt == 25) {
@@ -49,9 +49,9 @@ void game_loop() {
     load_level1_assets();
     init_gamestatus();
     play_game_music();
-    music_bank = get_music_bank();
     add_player(1);
     add_player(2);
+    frame_cnt = 0;
     while (1) {
         if(!pause) {
             execute_game_logic();
@@ -71,11 +71,9 @@ void execute_game_logic() {
         case GAME_STATUS_PLAYING:
             keys = SMS_getKeysStatus();
             manage_input(keys);
-            print_unsigned_char(player1.status);
             update_resources();
             break;
         default:
             break;
     }
-    frame_cnt++;
 }

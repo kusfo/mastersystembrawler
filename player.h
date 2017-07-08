@@ -28,5 +28,6 @@ void manage_input(unsigned int keys);
 void manage_iddle_status(unsigned char player_number, unsigned int keys);
 void manage_walking_status(unsigned char player_number, unsigned int keys);
 void manage_jumping_status(unsigned char player_number, unsigned int keys);
+void manage_crouched_status(unsigned char player_number, unsigned int keys);
 void update_positions();
 #endif //MSB_PLAYER_H

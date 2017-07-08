@@ -1,0 +1,86 @@
+XL2
+H 9 areas 15 global symbols
+M soundengine
+O -mz80
+S _PSGSFXPlay Ref0000
+S _ROM_bank_to_be_mapped_on_slot2 DefFFFF
+S _punch1_psg Ref0000
+S _SRAM_bank_to_be_mapped_on_slot2 DefFFFC
+S _PSGSFXGetStatus Ref0000
+S .__.ABS. Def0000
+S _PSGPlay Ref0000
+S _PSGSFXStop Ref0000
+S _SMS_SRAM Def8000
+S _PSGSFXFrame Ref0000
+S _PSGGetStatus Ref0000
+S _logo1985music_psg Ref0000
+S _level1music_psg Ref0000
+S _PSGFrame Ref0000
+A _CODE size 75 flags 0 addr 0
+S _play_punch_sound1 Def0026
+S _play_punch_sound2 Def003E
+S _play_game_music Def0013
+S _play_logo_music Def0000
+S _manage_sound_frame Def0056
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 2 flags 0 addr 0
+S _current_fx_bank Def0001
+S _current_music_bank Def0000
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 2 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 02 00
+T 00 00
+R 00 00 02 00
+T 01 00
+R 00 00 02 00
+T 01 00
+R 00 00 02 00
+T 00 00
+R 00 00 00 00
+T 00 00 21 FF FF 36 02 21 00 00 36 02 21 00 00 E5
+R 00 00 00 00 00 08 02 00 02 0D 0B 00
+T 0E 00 CD 00 00 F1 C9
+R 00 00 00 00 02 03 06 00
+T 13 00
+R 00 00 00 00
+T 13 00 21 FF FF 36 03 21 00 00 36 03 21 00 00 E5
+R 00 00 00 00 00 08 02 00 02 0D 0C 00
+T 21 00 CD 00 00 F1 C9
+R 00 00 00 00 02 03 06 00
+T 26 00
+R 00 00 00 00
+T 26 00 21 FF FF 36 03 21 01 00 36 03 3E 01 F5 33
+R 00 00 00 00 00 08 02 00
+T 34 00 21 00 00 E5 CD 00 00 F1 33 C9
+R 00 00 00 00 02 03 02 00 02 07 00 00
+T 3E 00
+R 00 00 00 00
+T 3E 00 21 FF FF 36 03 21 01 00 36 03 3E 02 F5 33
+R 00 00 00 00 00 08 02 00
+T 4C 00 21 00 00 E5 CD 00 00 F1 33 C9
+R 00 00 00 00 02 03 02 00 02 07 00 00
+T 56 00
+R 00 00 00 00
+T 56 00 CD 00 00 2D 20 09 3A 00 00 32 FF FF CD
+R 00 00 00 00 02 03 0A 00 00 09 02 00
+T 63 00 00 00
+R 00 00 00 00 02 02 0D 00
+T 65 00
+R 00 00 00 00
+T 65 00 CD 00 00 2D C2 00 00 3A 01 00 32 FF FF C3
+R 00 00 00 00 02 03 04 00 02 07 07 00 00 0A 02 00
+T 73 00 00 00
+R 00 00 00 00 02 02 09 00
+T 00 00
+R 00 00 07 00
+T 00 00 00
+R 00 00 07 00
+T 01 00
+R 00 00 07 00
+T 01 00 00
+R 00 00 07 00
