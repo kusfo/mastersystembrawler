@@ -62,6 +62,7 @@ extern entity *entitylist[MAX_ENTITIES];
 void initEngine();
 entity* addEntity(character* characterData, unsigned char px, unsigned char py);
 void setAnimation(unsigned char entityindex, int animationNumber);
+void forceReload(unsigned char entityindex);
 bool isAnimationEnded(unsigned char entitynumber);
 void setDirection(unsigned char entityindex, unsigned char direction);
 void updateAnimations();

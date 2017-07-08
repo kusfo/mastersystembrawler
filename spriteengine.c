@@ -35,11 +35,17 @@ entity* addEntity(character* characterData, unsigned char px, unsigned char py) 
 }
 
 void setAnimation(unsigned char entitynumber, int animationNumber) {
+	if(entitylist[entitynumber]->currentAnimation != animationNumber) {
+		entitylist[entitynumber]->has2ReloadTiles = true;	
+	}
 	entitylist[entitynumber]->currentAnimation = animationNumber;
-	entitylist[entitynumber]->has2ReloadTiles = true;
 	entitylist[entitynumber]->animationEnded = false;
 	entitylist[entitynumber]->currentFrame = 0;
 	entitylist[entitynumber]->framecnt = 0;	
+}
+
+void forceReload(unsigned char entitynumber) {
+	entitylist[entitynumber]->has2ReloadTiles = true;
 }
 
 bool isAnimationEnded(unsigned char entitynumber) {
