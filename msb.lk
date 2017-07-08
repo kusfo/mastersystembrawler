@@ -1,0 +1,20 @@
+-mjwx
+-i msb.ihx
+-b _CODE = 0x0200
+-b _DATA = 0xc000
+-b_BANK2=0x8000
+-b_BANK3=0x8000
+-k C:\Program Files\SDCC\bin\..\lib\z80
+-l SMSlib.lib
+-l z80
+crt0_sms.rel
+game.rel
+montylib.rel
+gamelogic.rel
+resources.rel
+spriteengine.rel
+PSGLib.rel
+bank2.rel
+bank3.rel
+
+-e
