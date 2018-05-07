@@ -3,8 +3,8 @@
 //
 #include <stdbool.h>
 #include "montylib.h"
-#include "SMSlib.h"
-#include "PSGlib.h"
+#include "libs/SMSlib.h"
+#include "libs/PSGlib.h"
 #include "randLut.h"
 #include "soundengine.h"
 
@@ -18,7 +18,7 @@ void init_console() {
     SMS_setSpriteMode(SPRITEMODE_NORMAL);
     SMS_displayOn();
     SMS_VDPturnOnFeature(VDPFEATURE_LEFTCOLBLANK);
-    SMS_setBackdropColor(1);
+    SMS_setBackdropColor(0);
     pause = false;
 }
 

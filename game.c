@@ -1,4 +1,4 @@
-#include "SMSlib.h"
+#include "libs/SMSlib.h"
 #include "gamelogic.h"
 
 void main() {

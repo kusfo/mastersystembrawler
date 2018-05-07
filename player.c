@@ -5,7 +5,7 @@
 #include "playercharacter.h"
 #include "montylib.h"
 #include "soundengine.h"
-#include "SMSlib.h"
+#include "libs/SMSlib.h"
 
 player player1;
 player player2;

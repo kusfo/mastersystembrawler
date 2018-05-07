@@ -1,5 +1,5 @@
-#include "SMSlib.h"
-#include "PSGlib.h"
+#include "libs/SMSlib.h"
+#include "libs/PSGlib.h"
 #include "soundengine.h"
 #include "bank2.h"
 #include "bank3.h"

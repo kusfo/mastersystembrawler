@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "SMSlib.h"
+#include "libs/SMSlib.h"
 #include "gamelogic.h"
 #include "resources.h"
 #include "spriteengine.h"
@@ -69,6 +69,7 @@ void fnaclogo_screen() {
 }
 
 void game_loop() {
+    SMS_setBackdropColor(1);
     load_level1_assets();
     init_gamestatus();
     play_game_music();
