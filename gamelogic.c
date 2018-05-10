@@ -72,9 +72,10 @@ void game_loop() {
     SMS_setBackdropColor(1);
     load_level1_assets();
     init_gamestatus();
+    init_level1_scroll();
     play_game_music();
     add_player(1);
-    add_player(2);
+    //add_player(2);
     frame_cnt = 0;
     while (1) {
         if(!pause) {
@@ -95,6 +96,11 @@ void execute_game_logic() {
         case GAME_STATUS_PLAYING:
             keys = SMS_getKeysStatus();
             manage_input(keys);
+            if(player1.entityreference->px == 20) {
+                update_scroll(-2,0);
+            } else if(player1.entityreference->px == 240) {
+                update_scroll(2,0);
+            }
             update_resources();
             break;
         default:

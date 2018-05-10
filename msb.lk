@@ -16,6 +16,7 @@ spriteengine.rel
 player.rel
 soundengine.rel
 ./libs/PSGLib.rel
+GSLib.rel
 bank2.rel
 bank3.rel
 

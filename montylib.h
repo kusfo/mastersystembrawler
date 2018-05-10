@@ -19,6 +19,9 @@ extern unsigned char fx_bank;
 void init_console();
 void waitForFrame();
 
+void init_scroll(void *scrolltable, void *metatiles, unsigned int scroll_x, unsigned int scroll_y);
+void move_scroll(unsigned char delta_x, unsigned char delta_y);
+
 unsigned char rand();
 
 #endif //MSB_MONTYLIB_H_H

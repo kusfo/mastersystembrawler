@@ -285,6 +285,7 @@ def writeanimations(animationlist):
 		print(animation)
 
 def main():
+	print("\n****Kusfo's Sprite Splitter***********\n")
 	parser = argparse.ArgumentParser(description='Process spritesheets for MSB project')
 	parser.add_argument('spritesheetfilename', metavar='F',
 	        help='the filename for the spritesheet')

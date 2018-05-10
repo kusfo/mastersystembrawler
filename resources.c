@@ -4,7 +4,11 @@
 #include "libs/PSGlib.h"
 #include "bank2.h" 
 #include "bank3.h"
+#include "montylib.h"
 #include "spriteengine.h"
+
+unsigned int scroll_x;
+unsigned int scroll_y;
 
 void load_logo_assets() {
 	SMS_mapROMBank(logo1985tiles_bin_bank);
@@ -35,14 +39,21 @@ void load_fnaclogo_fullpalette() {
 }
 
 void load_level1_assets() {
-	SMS_mapROMBank(levelbackgroundpalette_bin_bank);
-	SMS_loadBGPalette(levelbackgroundpalette_bin);
-    SMS_loadPSGaidencompressedTiles(levelbackgroundtiles_psgcompr,0);
-    SMS_loadTileMap(0, 0, levelbackgroundtilemap_bin, levelbackgroundtilemap_bin_size);
-   	SMS_mapROMBank(systemfont_psgcompr_bank);
-    SMS_loadPSGaidencompressedTiles(systemfont_psgcompr,80);
+	SMS_mapROMBank(level1_palette_bin_bank);
+	SMS_loadBGPalette(level1_palette_bin);
+    SMS_loadTiles(level1_tiles_bin,0, level1_tiles_bin_size);
     SMS_mapROMBank(player_palette_bin_bank);
     SMS_loadSpritePalette(player_palette_bin);
+}
+
+void init_level1_scroll() {
+	scroll_x = 0;
+	scroll_y = 0;
+	init_scroll(&level1_scrolltable_bin, &level1_metatiles_bin, scroll_x, scroll_y);
+}
+
+void update_scroll(signed char delta_x, signed char delta_y) {
+	move_scroll(delta_x, delta_y);
 }
 
 
