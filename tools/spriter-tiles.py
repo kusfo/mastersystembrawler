@@ -3,6 +3,8 @@ import argparse
 from PIL import Image
 from pathlib import Path
 
+TRANSPARENT_COLOR = 0
+
 class Character:
 	def __init__(self, name, outputdir, binaryoutputdir):
 		self.name = name
@@ -208,7 +210,7 @@ class Sprite:
 		numberpixels = len(rawdata)
 		for pixel in range(0, numberpixels):
 			pixeldata = rawdata[pixel]
-			if(pixeldata != 0):
+			if(pixeldata != TRANSPARENT_COLOR):
 				self.empty = False
 			self.data.append(pixeldata)
 		if(mirrored):
@@ -233,7 +235,7 @@ class Sprite:
 				byte = byte.to_bytes(1, byteorder='big')
 				outputfile.write(byte)
 
-def managespritesheet(spritesheetfilename, outputdir, binaryoutputdir, widthframe, heightframe, mirrorframe):
+def managespritesheet(spritesheetfilename, outputdir, binaryoutputdir, widthframe, heightframe, mirrorframe, verbose):
 		try:
 			spritesheetimageobject = Image.open(spritesheetfilename).copy()
 		except:
@@ -243,18 +245,23 @@ def managespritesheet(spritesheetfilename, outputdir, binaryoutputdir, widthfram
 			print("Sprite sheet must be in indexed mode!")
 			exit()
 		(spritesheetwidth, spritesheetheight) = spritesheetimageobject.size
+		if(verbose):
+			print("SpriteSheet is " + str(spritesheetwidth) + " pixels wide and " + str(spritesheetheight) + " pixels tall")
 		heightframepixels = heightframe * 8
 		widthframepixels = widthframe * 8
 		numanimations = int(spritesheetheight / heightframepixels)
 		maxnumframes = int(spritesheetwidth / widthframepixels)
-		print("num animations is " + str(numanimations))
-		print("longest animation has " + str(maxnumframes) + " frames")
+		if verbose:
+			print("num animations is " + str(numanimations))
+			print("longest animation has " + str(maxnumframes) + " frames")
 		animationnumber = 0
 		character = Character("player", outputdir, binaryoutputdir)
 		for animationnumber in range(0, numanimations):
 			animationimageobject = spritesheetimageobject.crop((0,animationnumber * heightframepixels,spritesheetwidth,(animationnumber + 1) * heightframepixels))
 			animation = manageanimation(animationimageobject, character.name, widthframe, heightframe, animationnumber, mirrorframe)
 			if(animation.empty == False):
+				if verbose:
+					print("Animation number " + str(animation.animationnumber) + " is " + str(animation.numframes) + " frames long")
 				character.addanimation(animation)
 		return character
 
@@ -301,12 +308,14 @@ def main():
 	                    help='outputdirectory for h file', default="")
 	parser.add_argument('-b','--binaryoutputdir', metavar='b',
 	                    help='output directory for bin files', default="")
+	parser.add_argument('-v','--verbose',metavar='v',
+						help='verbose process for debug purpouse', default=False)
 
 
 
 	args = parser.parse_args()
-	print(args.spritesheetfilename)
-	character = managespritesheet(args.spritesheetfilename, args.outputdir, args.binaryoutputdir, args.widthframe, args.heightframe, args.mirrorframe)
+	print("processing: " +args.spritesheetfilename)
+	character = managespritesheet(args.spritesheetfilename, args.outputdir, args.binaryoutputdir, args.widthframe, args.heightframe, args.mirrorframe, args.verbose)
 	if(args.configuration != ""):
 		character.addcfgfile(args.configuration)
 	character.writecfile()

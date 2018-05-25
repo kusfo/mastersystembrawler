@@ -451,21 +451,21 @@ void update_positions() {
 	
 	if(player1.entityreference->py > 160) {
 		player1.entityreference->py = 160;
-	} else if(player1.entityreference->py < 100 && player1.status != PLAYER_STATUS_JUMPING) {
-		player1.entityreference->py = 100;
+	} else if(player1.entityreference->py < 68 && player1.status != PLAYER_STATUS_JUMPING) {
+		player1.entityreference->py = 68;
 	}
-	if(player1.entityreference->px < 12) {
-		player1.entityreference->px = 12;
-	} else if(player1.entityreference->px > 240) {
-		player1.entityreference->px = 240;
+	if(player1.entityreference->px < 30) {
+		player1.entityreference->px = 30;
+	} else if(player1.entityreference->px > 220) {
+		player1.entityreference->px = 220;
 	}
 
 	move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection, UFIX2CHAR(player2.vy)*player2.ydirection);
 	
 	if(player2.entityreference->py > 160) {
 		player2.entityreference->py = 160;
-	} else if(player2.entityreference->py < 100 && player2.status != PLAYER_STATUS_JUMPING) {
-		player2.entityreference->py = 100;
+	} else if(player2.entityreference->py < 68 && player2.status != PLAYER_STATUS_JUMPING) {
+		player2.entityreference->py = 68;
 	}
 	if(player2.entityreference->px < 12) {
 		player2.entityreference->px = 12;

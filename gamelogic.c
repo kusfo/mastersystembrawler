@@ -96,9 +96,9 @@ void execute_game_logic() {
         case GAME_STATUS_PLAYING:
             keys = SMS_getKeysStatus();
             manage_input(keys);
-            if(player1.entityreference->px == 20) {
+            if(player1.entityreference->px < 35) {
                 update_scroll(-2,0);
-            } else if(player1.entityreference->px == 240) {
+            } else if(player1.entityreference->px > 215) {
                 update_scroll(2,0);
             }
             update_resources();

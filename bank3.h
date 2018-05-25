@@ -28,6 +28,9 @@ extern const unsigned char	fnaclogotilemap_bin[1536];
 extern const unsigned char	fnaclogopalette_bin[16];
 #define				fnaclogopalette_bin_size 16
 #define				fnaclogopalette_bin_bank 3
-extern const unsigned char	systemfont_psgcompr[1266];
-#define				systemfont_psgcompr_size 1266
-#define				systemfont_psgcompr_bank 3
+extern const unsigned char	levelbackgroundtilemap_bin[1536];
+#define				levelbackgroundtilemap_bin_size 1536
+#define				levelbackgroundtilemap_bin_bank 3
+extern const unsigned char	levelbackgroundtiles_psgcompr[442];
+#define				levelbackgroundtiles_psgcompr_size 442
+#define				levelbackgroundtiles_psgcompr_bank 3

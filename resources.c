@@ -4,6 +4,7 @@
 #include "libs/PSGlib.h"
 #include "bank2.h" 
 #include "bank3.h"
+#include "bank4.h"
 #include "montylib.h"
 #include "spriteengine.h"
 
@@ -49,10 +50,12 @@ void load_level1_assets() {
 void init_level1_scroll() {
 	scroll_x = 0;
 	scroll_y = 0;
+	SMS_mapROMBank(level1_metatiles_bin_bank);
 	init_scroll(&level1_scrolltable_bin, &level1_metatiles_bin, scroll_x, scroll_y);
 }
 
 void update_scroll(signed char delta_x, signed char delta_y) {
+	SMS_mapROMBank(level1_metatiles_bin_bank);
 	move_scroll(delta_x, delta_y);
 }
 

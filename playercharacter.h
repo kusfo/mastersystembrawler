@@ -1853,7 +1853,7 @@ static const character player_character =
 				{
 					1,//frame number
 					false,//frame mirrored
-					6,//numsprites
+					5,//numsprites
 					playeranimation9frame1_bin,//frame name
 					playeranimation9frame1_bin_size,//frame size
 					playeranimation9frame1_bin_bank,//frame bank
@@ -1869,31 +1869,26 @@ static const character player_character =
 					{
 						{
 							0,//tile number
-							8,//desplazamiento x
+							16,//desplazamiento x
 							16//desplazamiento y
 						},
 						{
 							1,//tile number
-							16,//desplazamiento x
-							16//desplazamiento y
-						},
-						{
-							2,//tile number
 							0,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							3,//tile number
+							2,//tile number
 							8,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							4,//tile number
+							3,//tile number
 							16,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							5,//tile number
+							4,//tile number
 							24,//desplazamiento x
 							24//desplazamiento y
 						},
@@ -1963,7 +1958,7 @@ static const character player_character =
 				{
 					1,//frame number
 					true,//frame mirrored
-					6,//numsprites
+					5,//numsprites
 					playeranimation9frame1mirrored_bin,//frame name
 					playeranimation9frame1mirrored_bin_size,//frame size
 					playeranimation9frame1mirrored_bin_bank,//frame bank
@@ -1979,31 +1974,26 @@ static const character player_character =
 					{
 						{
 							0,//tile number
-							-8,//desplazamiento x
+							-16,//desplazamiento x
 							16//desplazamiento y
 						},
 						{
 							1,//tile number
-							-16,//desplazamiento x
-							16//desplazamiento y
-						},
-						{
-							2,//tile number
 							0,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							3,//tile number
+							2,//tile number
 							-8,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							4,//tile number
+							3,//tile number
 							-16,//desplazamiento x
 							24//desplazamiento y
 						},
 						{
-							5,//tile number
+							4,//tile number
 							-24,//desplazamiento x
 							24//desplazamiento y
 						},

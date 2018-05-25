@@ -1,5 +1,5 @@
-extern const unsigned char	player_palette_bin[8];
-#define				player_palette_bin_size 8
+extern const unsigned char	player_palette_bin[13];
+#define				player_palette_bin_size 13
 #define				player_palette_bin_bank 2
 extern const unsigned char	playeranimation0frame0_bin[256];
 #define				playeranimation0frame0_bin_size 256
@@ -91,30 +91,27 @@ extern const unsigned char	playeranimation9frame0_bin[256];
 extern const unsigned char	playeranimation9frame0mirrored_bin[256];
 #define				playeranimation9frame0mirrored_bin_size 256
 #define				playeranimation9frame0mirrored_bin_bank 2
-extern const unsigned char	playeranimation9frame1_bin[192];
-#define				playeranimation9frame1_bin_size 192
+extern const unsigned char	playeranimation9frame1_bin[160];
+#define				playeranimation9frame1_bin_size 160
 #define				playeranimation9frame1_bin_bank 2
-extern const unsigned char	playeranimation9frame1mirrored_bin[192];
-#define				playeranimation9frame1mirrored_bin_size 192
+extern const unsigned char	playeranimation9frame1mirrored_bin[160];
+#define				playeranimation9frame1mirrored_bin_size 160
 #define				playeranimation9frame1mirrored_bin_bank 2
-extern const unsigned char	level1_metatiles_bin[1240];
-#define				level1_metatiles_bin_size 1240
+extern const unsigned char	level1_metatiles_bin[712];
+#define				level1_metatiles_bin_size 712
 #define				level1_metatiles_bin_bank 2
-extern const unsigned char	level1_palette_bin[20];
-#define				level1_palette_bin_size 20
+extern const unsigned char	level1_palette_bin[13];
+#define				level1_palette_bin_size 13
 #define				level1_palette_bin_bank 2
-extern const unsigned char	level1_scrolltable_bin[385];
-#define				level1_scrolltable_bin_size 385
+extern const unsigned char	level1_scrolltable_bin[1549];
+#define				level1_scrolltable_bin_size 1549
 #define				level1_scrolltable_bin_bank 2
-extern const unsigned char	level1_tiles_bin[3936];
-#define				level1_tiles_bin_size 3936
+extern const unsigned char	level1_tiles_bin[4352];
+#define				level1_tiles_bin_size 4352
 #define				level1_tiles_bin_bank 2
-extern const unsigned char	levelbackgroundtilemap_bin[1536];
-#define				levelbackgroundtilemap_bin_size 1536
-#define				levelbackgroundtilemap_bin_bank 2
-extern const unsigned char	levelbackgroundtiles_psgcompr[442];
-#define				levelbackgroundtiles_psgcompr_size 442
-#define				levelbackgroundtiles_psgcompr_bank 2
+extern const unsigned char	systemfont_psgcompr[1266];
+#define				systemfont_psgcompr_size 1266
+#define				systemfont_psgcompr_bank 2
 extern const unsigned char	levelbackgroundpalette_bin[15];
 #define				levelbackgroundpalette_bin_size 15
 #define				levelbackgroundpalette_bin_bank 2
