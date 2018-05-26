@@ -77,6 +77,10 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player1.status2 = PLAYER_STATUS2_IDDLE;
 				play_punch_sound2();
 				setAnimation(player1.entityreference->entityIndex,0);
+			} else if(isFrameEnded(player1.entityreference->entityIndex) && !(keys & PORT_A_KEY_1)) {
+				player1.status2 = PLAYER_STATUS2_IDDLE;
+				play_punch_sound2();
+				setAnimation(player1.entityreference->entityIndex,0);
 			}
 		} else {
 			if(keys & PORT_A_KEY_RIGHT) {
@@ -120,6 +124,10 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 				player2.status2 = PLAYER_STATUS2_IDDLE;
 				setAnimation(player2.entityreference->entityIndex,0);
 				play_punch_sound2();
+			} else if(isFrameEnded(player2.entityreference->entityIndex) && !(keys & PORT_B_KEY_1)) {
+				player2.status2 = PLAYER_STATUS2_IDDLE;
+				play_punch_sound2();
+				setAnimation(player2.entityreference->entityIndex,0);
 			}
 		} else {
 			if(keys & PORT_B_KEY_RIGHT) {

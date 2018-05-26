@@ -122,13 +122,13 @@ void execute_game_logic() {
             keys = SMS_getKeysStatus();
             manage_input(keys);
             if(player1.vx > 0 && scroll_enabled) {
-                if(player1.entityreference->px > 230 && player1.xdirection == 1) {
+                if(player1.entityreference->px > 200 && player1.xdirection == 1) {
                     update_scroll(UFIX2CHAR(player1.vx),0);
                     if(get_scroll_position_x() > 200){
                         scroll_enabled = false;
                     }
                     update_positions(UFIX2CHAR(player1.vx),0); 
-                } else if(player1.entityreference->px < 36 && player1.xdirection == -1) {
+                } else if(player1.entityreference->px < 56 && player1.xdirection == -1) {
                     update_scroll(UFIX2CHAR(player1.vx)*-1,0);
                     update_positions(UFIX2CHAR(player1.vx)*-1,0); 
                 } else {
