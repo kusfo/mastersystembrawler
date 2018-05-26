@@ -9,10 +9,16 @@ void load_fnaclogo_assets();
 void load_fnaclogo_halfpalette();
 void load_fnaclogo_fullpalette();
 
+void load_presentation_assets();
+void load_presentation_halfpalette();
+void load_presentation_fullpalette();
+
 void load_level1_assets();
 void init_level1_scroll();
 
 void update_scroll(signed char delta_x, signed char delta_y);
+unsigned int get_scroll_position_x();
+unsigned int get_scroll_position_y();
 
 void update_resources();
 

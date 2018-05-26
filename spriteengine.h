@@ -55,6 +55,7 @@ typedef struct {
 	unsigned int vramposition;
 	bool has2ReloadTiles;
 	bool animationEnded;
+	bool frameEnded;
 } entity;
 
 extern entity *entitylist[MAX_ENTITIES];
@@ -63,6 +64,7 @@ void initEngine();
 entity* addEntity(character* characterData, unsigned char px, unsigned char py);
 void setAnimation(unsigned char entityindex, int animationNumber);
 void forceReload(unsigned char entityindex);
+bool isFrameEnded(unsigned char entitynumber);
 bool isAnimationEnded(unsigned char entitynumber);
 void setDirection(unsigned char entityindex, unsigned char direction);
 void updateAnimations();

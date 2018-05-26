@@ -97,8 +97,8 @@ extern const unsigned char	playeranimation9frame1_bin[160];
 extern const unsigned char	playeranimation9frame1mirrored_bin[160];
 #define				playeranimation9frame1mirrored_bin_size 160
 #define				playeranimation9frame1mirrored_bin_bank 2
-extern const unsigned char	level1_metatiles_bin[712];
-#define				level1_metatiles_bin_size 712
+extern const unsigned char	level1_metatiles_bin[768];
+#define				level1_metatiles_bin_size 768
 #define				level1_metatiles_bin_bank 2
 extern const unsigned char	level1_palette_bin[13];
 #define				level1_palette_bin_size 13

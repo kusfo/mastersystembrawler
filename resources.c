@@ -32,11 +32,29 @@ void load_fnaclogo_assets() {
 }
 
 void load_fnaclogo_halfpalette() {
+	SMS_mapROMBank(fnaclogopalette_bin_bank);
 	SMS_loadBGPaletteHalfBrightness(fnaclogopalette_bin);
 }
 
 void load_fnaclogo_fullpalette() {
+	SMS_mapROMBank(fnaclogopalette_bin_bank);
 	SMS_loadBGPalette(fnaclogopalette_bin);
+}
+
+void load_presentation_assets() {
+	SMS_mapROMBank(gatopresentaciontiles_psgcompr_bank);
+    SMS_loadPSGaidencompressedTiles(gatopresentaciontiles_psgcompr,0);
+    SMS_loadTileMap(0, 0, gatopresentaciontilemap_bin, gatopresentaciontilemap_bin_size);	
+}
+
+void load_presentation_halfpalette() {
+	SMS_mapROMBank(gatopresentacionpalette_bin_bank);
+	SMS_loadBGPaletteHalfBrightness(gatopresentacionpalette_bin);
+}
+
+void load_presentation_fullpalette() {
+	SMS_mapROMBank(gatopresentacionpalette_bin_bank);
+	SMS_loadBGPalette(gatopresentacionpalette_bin);
 }
 
 void load_level1_assets() {
@@ -57,6 +75,14 @@ void init_level1_scroll() {
 void update_scroll(signed char delta_x, signed char delta_y) {
 	SMS_mapROMBank(level1_metatiles_bin_bank);
 	move_scroll(delta_x, delta_y);
+}
+
+unsigned int get_scroll_position_x() {
+	return get_scroll_x();
+}
+
+unsigned int get_scroll_position_y() {
+	return get_scroll_y();
 }
 
 

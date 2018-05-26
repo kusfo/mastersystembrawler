@@ -21,6 +21,8 @@ void waitForFrame();
 
 void init_scroll(void *scrolltable, void *metatiles, unsigned int scroll_x, unsigned int scroll_y);
 void move_scroll(signed char delta_x, signed char delta_y);
+unsigned int get_scroll_x();
+unsigned int get_scroll_y();
 
 unsigned char rand();
 

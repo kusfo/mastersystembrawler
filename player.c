@@ -68,7 +68,6 @@ void manage_input(unsigned int keys) {
 		default:
 			break;
 	}
-	update_positions();
 }
 
 void manage_iddle_status(unsigned char player_number, unsigned int keys) {
@@ -195,7 +194,7 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player1.xdirection = -1;
 				player1.entityreference->direction = LEFT_DIRECTION;
 			} else {
-				if(isAnimationEnded(player1.entityreference->entityIndex)) {
+				if(isFrameEnded(player1.entityreference->entityIndex)) {
 					player1.vx = 0;
 				}
 			}
@@ -212,7 +211,7 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player1.vy = CHAR2UFIX(1);
 				player1.ydirection = 1;
 			} else {
-				if(isAnimationEnded(player1.entityreference->entityIndex)) {
+				if(isFrameEnded(player1.entityreference->entityIndex)) {
 					player1.vy = 0;
 				}
 			}
@@ -267,7 +266,7 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player2.xdirection = -1;
 				player2.entityreference->direction = LEFT_DIRECTION;
 			} else {
-				if(isAnimationEnded(player2.entityreference->entityIndex)) {
+				if(isFrameEnded(player2.entityreference->entityIndex)) {
 					player2.vx = 0;
 				}
 			}
@@ -284,7 +283,7 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 				player2.vy = CHAR2UFIX(1);
 				player2.ydirection = 1;
 			} else {
-				if(isAnimationEnded(player2.entityreference->entityIndex)) {
+				if(isFrameEnded(player2.entityreference->entityIndex)) {
 					player2.vy = 0;
 				}
 			}
@@ -446,21 +445,31 @@ void manage_crouched_status(unsigned char player_number, unsigned int keys) {
 	}	
 }
 
-void update_positions() {
-	move_entity(player1.entityreference->entityIndex, UFIX2CHAR(player1.vx)*player1.xdirection, UFIX2CHAR(player1.vy)*player1.ydirection);
+void update_positions(signed char delta_x, signed char delta_y) {
+	if(delta_x != 0) {
+		move_entity(player1.entityreference->entityIndex, 0, UFIX2CHAR(player1.vy)*player1.ydirection);	
+	} else {
+		move_entity(player1.entityreference->entityIndex, UFIX2CHAR(player1.vx)*player1.xdirection, UFIX2CHAR(player1.vy)*player1.ydirection);	
+	}
+	
 	
 	if(player1.entityreference->py > 160) {
 		player1.entityreference->py = 160;
 	} else if(player1.entityreference->py < 68 && player1.status != PLAYER_STATUS_JUMPING) {
 		player1.entityreference->py = 68;
 	}
-	if(player1.entityreference->px < 30) {
-		player1.entityreference->px = 30;
-	} else if(player1.entityreference->px > 220) {
-		player1.entityreference->px = 220;
+	if(player1.entityreference->px < 12) {
+		player1.entityreference->px = 12;
+	} else if(player1.entityreference->px > 240) {
+		player1.entityreference->px = 240;
 	}
 
-	move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection, UFIX2CHAR(player2.vy)*player2.ydirection);
+	if(delta_x != 0) {
+		move_entity(player2.entityreference->entityIndex, delta_x * -1, UFIX2CHAR(player2.vy)*player2.ydirection);	
+	} else {
+		move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection, UFIX2CHAR(player2.vy)*player2.ydirection);
+	}
+	
 	
 	if(player2.entityreference->py > 160) {
 		player2.entityreference->py = 160;

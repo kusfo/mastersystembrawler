@@ -4,6 +4,7 @@
 -b _DATA = 0xc000
 -b_BANK2=0x8000
 -b_BANK3=0x8000
+-b_BANK4=0x8000
 -k C:\Program Files\SDCC\bin\..\lib\z80
 -l SMSlib.lib
 -l z80
@@ -19,5 +20,6 @@ soundengine.rel
 GSLib.rel
 bank2.rel
 bank3.rel
+bank4.rel
 
 -e

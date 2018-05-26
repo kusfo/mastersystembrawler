@@ -23,6 +23,7 @@ entity* addEntity(character* characterData, unsigned char px, unsigned char py) 
 	entitylist[entityIndex]->currentFrame = 0;
 	entitylist[entityIndex]->framecnt = 0;
 	entitylist[entityIndex]->has2ReloadTiles = true;
+	entitylist[entityIndex]->frameEnded = true;
 	entitylist[entityIndex]->animationEnded = true;
 	entitylist[entityIndex]->characterData = characterData;
 	entitylist[entityIndex]->px = px;
@@ -39,6 +40,7 @@ void setAnimation(unsigned char entitynumber, int animationNumber) {
 		entitylist[entitynumber]->has2ReloadTiles = true;	
 	}
 	entitylist[entitynumber]->currentAnimation = animationNumber;
+	entitylist[entitynumber]->frameEnded = false;
 	entitylist[entitynumber]->animationEnded = false;
 	entitylist[entitynumber]->currentFrame = 0;
 	entitylist[entitynumber]->framecnt = 0;	
@@ -46,6 +48,10 @@ void setAnimation(unsigned char entitynumber, int animationNumber) {
 
 void forceReload(unsigned char entitynumber) {
 	entitylist[entitynumber]->has2ReloadTiles = true;
+}
+
+bool isFrameEnded(unsigned char entitynumber) {
+	return entitylist[entitynumber]->frameEnded;
 }
 
 bool isAnimationEnded(unsigned char entitynumber) {
@@ -62,6 +68,7 @@ void updateAnimations() {
 	for(i = 0;i < entityIndex; i++) {
 		entitylist[i]->framecnt++;
 		if(entitylist[i]->framecnt > entitylist[i]->characterData->animationlist[entitylist[i]->currentAnimation].framelist[entitylist[i]->currentFrame].frame_time){
+			entitylist[i]->frameEnded = true;
 			if(entitylist[i]->currentFrame < entitylist[i]->characterData->animationlist[entitylist[i]->currentAnimation].numframes - 1) { //tenir en compte els mirrored!
 				entitylist[i]->currentFrame++;
 				entitylist[i]->has2ReloadTiles = true;

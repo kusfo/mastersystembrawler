@@ -32,14 +32,22 @@ void init_scroll(void *scrolltable, void *metatiles, unsigned int scroll_x, unsi
 }
 
 void move_scroll(signed char delta_x, signed char delta_y) {
-    unsigned int currentx = GSL_getCurrentX();
-    unsigned int currenty = GSL_getCurrentY();
-    if(currentx + delta_x < 0) delta_x = 0;
-    if(currentx + delta_x > GSL_getMapWidthInPixels() - 256) delta_x = 0;
-    if(currenty + delta_y < 0) delta_y = 0;
-    if(currenty + delta_y > GSL_getMapHeightInPixels() - 192) delta_y = 0;
+    signed int currentx = GSL_getCurrentX();
+    signed int currenty = GSL_getCurrentY();
+    if((currentx + delta_x) < 0) delta_x = 0;
+    if((currentx + delta_x) > (GSL_getMapWidthInPixels() - 256)) delta_x = 0;
+    if((currenty + delta_y) < 0) delta_y = 0;
+    if((currenty + delta_y) > (GSL_getMapHeightInPixels() - 192)) delta_y = 0;
     
     GSL_scroll(delta_x,delta_y);
+}
+
+unsigned int get_scroll_x() {
+    return GSL_getCurrentX();
+}
+
+unsigned int get_scroll_y() {
+    return GSL_getCurrentY();
 }
 
 void waitForFrame(){
