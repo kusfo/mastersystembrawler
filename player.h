@@ -25,9 +25,9 @@ extern player player2;
 
 void add_player(unsigned char player_number);
 void manage_input(unsigned int keys);
-void manage_iddle_status(unsigned char player_number, unsigned int keys);
-void manage_walking_status(unsigned char player_number, unsigned int keys);
-void manage_jumping_status(unsigned char player_number, unsigned int keys);
-void manage_crouched_status(unsigned char player_number, unsigned int keys);
-void update_positions(signed char delta_x, signed char delta_y);
+void manage_player_iddle_status(unsigned char player_number, unsigned int keys);
+void manage_player_walking_status(unsigned char player_number, unsigned int keys);
+void manage_player_jumping_status(unsigned char player_number, unsigned int keys);
+void manage_player_crouched_status(unsigned char player_number, unsigned int keys);
+void update_player_positions(signed char delta_x, signed char delta_y);
 #endif //MSB_PLAYER_H

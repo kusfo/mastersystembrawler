@@ -21,6 +21,8 @@ sdcc -c -mz80 --peep-file peep-rules.txt spriteengine.c
 if %errorlevel% neq 0 exit
 sdcc -c -mz80 --peep-file peep-rules.txt player.c
 if %errorlevel% neq 0 exit
+sdcc -c -mz80 --peep-file peep-rules.txt enemy.c
+if %errorlevel% neq 0 exit
 sdcc -c -mz80 --peep-file peep-rules.txt soundengine.c
 if %errorlevel% neq 0 exit
 echo Compilar Juego

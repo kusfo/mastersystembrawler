@@ -235,7 +235,7 @@ class Sprite:
 				byte = byte.to_bytes(1, byteorder='big')
 				outputfile.write(byte)
 
-def managespritesheet(spritesheetfilename, outputdir, binaryoutputdir, widthframe, heightframe, mirrorframe, verbose):
+def managespritesheet(spritesheetfilename, name, outputdir, binaryoutputdir, widthframe, heightframe, mirrorframe, verbose):
 		try:
 			spritesheetimageobject = Image.open(spritesheetfilename).copy()
 		except:
@@ -255,7 +255,9 @@ def managespritesheet(spritesheetfilename, outputdir, binaryoutputdir, widthfram
 			print("num animations is " + str(numanimations))
 			print("longest animation has " + str(maxnumframes) + " frames")
 		animationnumber = 0
-		character = Character("player", outputdir, binaryoutputdir)
+		if(verbose):
+			print("Creating character " + name)
+		character = Character(name, outputdir, binaryoutputdir)
 		for animationnumber in range(0, numanimations):
 			animationimageobject = spritesheetimageobject.crop((0,animationnumber * heightframepixels,spritesheetwidth,(animationnumber + 1) * heightframepixels))
 			animation = manageanimation(animationimageobject, character.name, widthframe, heightframe, animationnumber, mirrorframe)
@@ -310,12 +312,14 @@ def main():
 	                    help='output directory for bin files', default="")
 	parser.add_argument('-v','--verbose',metavar='v',
 						help='verbose process for debug purpouse', default=False)
+	parser.add_argument('-n','--name',metavar='n',
+						help='character name', default="character")
 
 
 
 	args = parser.parse_args()
 	print("processing: " +args.spritesheetfilename)
-	character = managespritesheet(args.spritesheetfilename, args.outputdir, args.binaryoutputdir, args.widthframe, args.heightframe, args.mirrorframe, args.verbose)
+	character = managespritesheet(args.spritesheetfilename, args.name, args.outputdir, args.binaryoutputdir, args.widthframe, args.heightframe, args.mirrorframe, args.verbose)
 	if(args.configuration != ""):
 		character.addcfgfile(args.configuration)
 	character.writecfile()

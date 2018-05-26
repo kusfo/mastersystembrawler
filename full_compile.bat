@@ -9,7 +9,9 @@ if %errorlevel% neq 0 exit
 .\bmp2tile\bmp2tile.exe .\gfx-source\gato_presentacion.png -mirror -removedupes -savetiles .\assets\gatopresentaciontiles.psgcompr -savepalette .\assets\gatopresentacionpalette.bin -savetilemap .\assets\gatopresentaciontilemap.bin -exit
 if %errorlevel% neq 0 exit
 echo Exportar spritesheets
-python ./tools/spriter-tiles.py -w 4 -e 4 -m True -v True -c ./tools/player.cfg -o ./ -b ./assets ./gfx-source/player_spritesheet.png
+python ./tools/spriter-tiles.py -w 4 -e 4 -m True -n "player" -v True -c ./tools/player.cfg -o ./ -b ./assets ./gfx-source/player_spritesheet.png
+if %errorlevel% neq 0 exit
+python ./tools/spriter-tiles.py -w 4 -e 4 -m True -n "enemy" -v True -c ./tools/enemy.cfg -o ./ -b ./assets ./gfx-source/enemy_spritesheet.png
 if %errorlevel% neq 0 exit
 echo Convertir ficheros de graficos a C
 assets2banks assets
@@ -33,6 +35,8 @@ if %errorlevel% neq 0 exit
 sdcc -c -mz80 --peep-file peep-rules.txt spriteengine.c
 if %errorlevel% neq 0 exit
 sdcc -c -mz80 --peep-file peep-rules.txt player.c
+if %errorlevel% neq 0 exit
+sdcc -c -mz80 --peep-file peep-rules.txt enemy.c
 if %errorlevel% neq 0 exit
 sdcc -c -mz80 --peep-file peep-rules.txt soundengine.c
 if %errorlevel% neq 0 exit

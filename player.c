@@ -2,6 +2,8 @@
 #include "spriteengine.h"
 #include "player.h"
 #include "bank2.h"
+#include "bank3.h"
+#include "bank4.h"
 #include "playercharacter.h"
 #include "montylib.h"
 #include "soundengine.h"
@@ -11,66 +13,62 @@ player player1;
 player player2;
 
 void add_player(unsigned char player_number) {
+	player* playerpointer; 
 	if(player_number == 1) {
 		initEngine();
-		if(player1.entityreference == 0) {
-			player1.vx = 0;
-			player1.vy = 0;
-			player1.xdirection = 1;
-			player1.ydirection = 1;
-			player1.entityreference = addEntity(&player_character, 32, 100);
-			player1.status = PLAYER_STATUS_IDDLE;
-			player1.status2 = PLAYER_STATUS2_IDDLE;
-		}	
+		playerpointer = &player1;
 	} else {
-		if(player2.entityreference == 0) {
-			player2.vx = 0;
-			player2.vy = 0;
-			player2.xdirection = 1;
-			player2.ydirection = 1;
-			player2.entityreference = addEntity(&player_character, 132, 100);
-			player2.status = PLAYER_STATUS_IDDLE;
-			player2.status2 = PLAYER_STATUS2_IDDLE;
-		}
+		playerpointer = &player2;
+	}
+	if(playerpointer->entityreference == 0) {
+		playerpointer->vx = 0;
+		playerpointer->vy = 0;
+		playerpointer->xdirection = 1;
+		playerpointer->ydirection = 1;
+		playerpointer->entityreference = addEntity(&player_character, 32, 100);
+		playerpointer->status = PLAYER_STATUS_IDDLE;
+		playerpointer->status2 = PLAYER_STATUS2_IDDLE;
 	}
 }
 
 void manage_input(unsigned int keys) {
 	switch(player1.status) {
 		case PLAYER_STATUS_IDDLE:
-			manage_iddle_status(1, keys);
+			manage_player_iddle_status(1, keys);
 			break;
 		case PLAYER_STATUS_WALKING:
-			manage_walking_status(1, keys);
+			manage_player_walking_status(1, keys);
 			break;
 		case PLAYER_STATUS_JUMPING:
-			manage_jumping_status(1, keys);
+			manage_player_jumping_status(1, keys);
 			break;
 		case PLAYER_STATUS_CROUCHED:
-			manage_crouched_status(1, keys);
+			manage_player_crouched_status(1, keys);
 			break;
 		default:
 			break;
 	}
-	switch(player2.status) {
-		case PLAYER_STATUS_IDDLE:
-			manage_iddle_status(2, keys);
-			break;
-		case PLAYER_STATUS_WALKING:
-			manage_walking_status(2, keys);
-			break;
-		case PLAYER_STATUS_JUMPING:
-			manage_jumping_status(2, keys);
-			break;
-		case PLAYER_STATUS_CROUCHED:
-			manage_crouched_status(2, keys);
-			break;
-		default:
-			break;
+	if(player2.entityreference != 0) {
+		switch(player2.status) {
+			case PLAYER_STATUS_IDDLE:
+				manage_player_iddle_status(2, keys);
+				break;
+			case PLAYER_STATUS_WALKING:
+				manage_player_walking_status(2, keys);
+				break;
+			case PLAYER_STATUS_JUMPING:
+				manage_player_jumping_status(2, keys);
+				break;
+			case PLAYER_STATUS_CROUCHED:
+				manage_player_crouched_status(2, keys);
+				break;
+			default:
+				break;
+		}	
 	}
 }
 
-void manage_iddle_status(unsigned char player_number, unsigned int keys) {
+void manage_player_iddle_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
 			if(isAnimationEnded(player1.entityreference->entityIndex)) {
@@ -166,7 +164,7 @@ void manage_iddle_status(unsigned char player_number, unsigned int keys) {
 	}
 }
 
-void manage_walking_status(unsigned char player_number, unsigned int keys) {
+void manage_player_walking_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
 			if(keys & PORT_A_KEY_DOWN) {
@@ -180,6 +178,12 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 					player1.vx = 0;
 					setAnimation(player1.entityreference->entityIndex,0);
 					play_punch_sound2();
+				} else if(isFrameEnded(player1.entityreference->entityIndex) && !(keys & PORT_A_KEY_1)) {
+					player1.status2 = PLAYER_STATUS2_IDDLE;
+					player1.status = PLAYER_STATUS_IDDLE;
+					player1.vx = 0;
+					play_punch_sound2();
+					setAnimation(player1.entityreference->entityIndex,0);
 				}
 			}
 		} else {
@@ -252,6 +256,12 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 					player2.vx = 0;
 					setAnimation(player2.entityreference->entityIndex,0);
 					play_punch_sound2();
+				} else if(isFrameEnded(player2.entityreference->entityIndex) && !(keys & PORT_B_KEY_1)) {
+					player2.status2 = PLAYER_STATUS2_IDDLE;
+					player2.status = PLAYER_STATUS_IDDLE;
+					player2.vx = 0;
+					play_punch_sound2();
+					setAnimation(player2.entityreference->entityIndex,0);
 				}
 			}
 		} else {
@@ -313,7 +323,7 @@ void manage_walking_status(unsigned char player_number, unsigned int keys) {
 	}
 }
 
-void manage_jumping_status(unsigned char player_number, unsigned int keys) {
+void manage_player_jumping_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
 		if(keys & PORT_A_KEY_RIGHT) {
 			if(player1.xdirection == -1) {
@@ -405,7 +415,7 @@ void manage_jumping_status(unsigned char player_number, unsigned int keys) {
 	}
 }
 
-void manage_crouched_status(unsigned char player_number, unsigned int keys) {
+void manage_player_crouched_status(unsigned char player_number, unsigned int keys) {
 	if(player_number == 1) {
 		if(player1.status2 == PLAYER_STATUS2_PUNCHING) {
 			if(isAnimationEnded(player1.entityreference->entityIndex)) {
@@ -453,13 +463,12 @@ void manage_crouched_status(unsigned char player_number, unsigned int keys) {
 	}	
 }
 
-void update_positions(signed char delta_x, signed char delta_y) {
+void update_player_positions(signed char delta_x, signed char delta_y) {
 	if(delta_x != 0) {
 		move_entity(player1.entityreference->entityIndex, 0, UFIX2CHAR(player1.vy)*player1.ydirection);	
 	} else {
 		move_entity(player1.entityreference->entityIndex, UFIX2CHAR(player1.vx)*player1.xdirection, UFIX2CHAR(player1.vy)*player1.ydirection);	
 	}
-	
 	
 	if(player1.entityreference->py > 160) {
 		player1.entityreference->py = 160;
@@ -472,13 +481,8 @@ void update_positions(signed char delta_x, signed char delta_y) {
 		player1.entityreference->px = 240;
 	}
 
-	if(delta_x != 0) {
-		move_entity(player2.entityreference->entityIndex, delta_x * -1, UFIX2CHAR(player2.vy)*player2.ydirection);	
-	} else {
-		move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection, UFIX2CHAR(player2.vy)*player2.ydirection);
-	}
-	
-	
+	move_entity(player2.entityreference->entityIndex, UFIX2CHAR(player2.vx)*player2.xdirection + (delta_x * -1), UFIX2CHAR(player2.vy)*player2.ydirection);
+		
 	if(player2.entityreference->py > 160) {
 		player2.entityreference->py = 160;
 	} else if(player2.entityreference->py < 68 && player2.status != PLAYER_STATUS_JUMPING) {

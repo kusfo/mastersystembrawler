@@ -10,6 +10,7 @@
 crt0_sms.rel
 scrolltester.rel
 GSLib.rel
+enemy.rel
 bank2.rel
 bank3.rel
 

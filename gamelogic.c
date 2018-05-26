@@ -5,6 +5,7 @@
 #include "spriteengine.h"
 #include "soundengine.h"
 #include "player.h"
+#include "enemy.h"
 #include "montylib.h"
 
 unsigned char game_status;
@@ -23,7 +24,6 @@ void play_game(){
         game_loop();
     }
 }
-
 
 void logo_screen() {
     load_logo_assets();
@@ -71,10 +71,12 @@ void fnaclogo_screen() {
 }
 
 void presentation_screen() {
+    unsigned int keys;
     load_presentation_assets();
     load_background_blackpalette();
+    play_presentation_music();
     frame_cnt = 0;
-    while (frame_cnt < 300) {
+    while (frame_cnt < 800) {
         frame_cnt++;
         if(frame_cnt == 25) {
             load_presentation_halfpalette();
@@ -82,11 +84,15 @@ void presentation_screen() {
         if(frame_cnt == 50) {
             load_presentation_fullpalette();
         }
-        if(frame_cnt == 250) {
+        if(frame_cnt == 750) {
             load_presentation_halfpalette();
         } 
-        if(frame_cnt == 275) {
+        if(frame_cnt == 775) {
             load_background_blackpalette();
+        }
+        keys = SMS_getKeysStatus();
+        if(keys & PORT_A_KEY_1 && (frame_cnt < 740)) {
+            frame_cnt = 740;
         }
         waitForFrame();
     }
@@ -119,26 +125,31 @@ void execute_game_logic() {
     unsigned int keys;
     switch (game_status) {
         case GAME_STATUS_PLAYING:
-            keys = SMS_getKeysStatus();
-            manage_input(keys);
+            //if(frame_cnt & 1) {
+                keys = SMS_getKeysStatus();
+                manage_input(keys);
+                //decide_action();
+            //} else {
+                update_resources();
+            //}
             if(player1.vx > 0 && scroll_enabled) {
                 if(player1.entityreference->px > 200 && player1.xdirection == 1) {
                     update_scroll(UFIX2CHAR(player1.vx),0);
-                    if(get_scroll_position_x() > 200){
+                    if(get_scroll_position_x() > 1200){
                         scroll_enabled = false;
+                        //add_enemy(0);
                     }
-                    update_positions(UFIX2CHAR(player1.vx),0); 
+                    update_player_positions(UFIX2CHAR(player1.vx),0); 
                 } else if(player1.entityreference->px < 56 && player1.xdirection == -1) {
                     update_scroll(UFIX2CHAR(player1.vx)*-1,0);
-                    update_positions(UFIX2CHAR(player1.vx)*-1,0); 
+                    update_player_positions(UFIX2CHAR(player1.vx)*-1,0); 
                 } else {
-                   update_positions(0,0); 
+                   update_player_positions(0,0); 
                 }
-                
             } else {
-                update_positions(0,0);    
+                update_player_positions(0,0);    
             }
-            update_resources();
+            frame_cnt++;
             break;
         default:
             break;

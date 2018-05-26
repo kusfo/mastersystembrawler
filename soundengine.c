@@ -3,6 +3,7 @@
 #include "soundengine.h"
 #include "bank2.h"
 #include "bank3.h"
+#include "bank4.h"
 
 unsigned char current_music_bank = 0;
 unsigned char current_fx_bank = 0;
@@ -11,6 +12,12 @@ void play_logo_music() {
 	SMS_mapROMBank(logo1985music_psg_bank);
 	current_music_bank = logo1985music_psg_bank;
 	PSGPlay(logo1985music_psg);
+}
+
+void play_presentation_music() {
+	SMS_mapROMBank(presentation_psg_bank);
+	current_music_bank = presentation_psg_bank;
+	PSGPlay(presentation_psg);
 }
 
 void play_game_music() {
