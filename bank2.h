@@ -10,8 +10,8 @@ extern const unsigned char	gatopresentacionpalette_bin[12];
 extern const unsigned char	presentation_psg[3267];
 #define				presentation_psg_size 3267
 #define				presentation_psg_bank 2
-extern const unsigned char	level1_metatiles_bin[944];
-#define				level1_metatiles_bin_size 944
+extern const unsigned char	level1_metatiles_bin[952];
+#define				level1_metatiles_bin_size 952
 #define				level1_metatiles_bin_bank 2
 extern const unsigned char	level1_palette_bin[13];
 #define				level1_palette_bin_size 13
